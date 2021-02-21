@@ -1,14 +1,14 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-from app_git import checkGit, questionInit, archives, questionGitignore, questionREADME
+from app_git import checkGit, questionInit, archives, questionGitignore, questionREADME, seguimiento
 
 
 
 check = checkGit()
 
 
-def naine():
+def condition():
     if archives() == False:
         questionREADME()
         questionGitignore()
@@ -17,15 +17,19 @@ def naine():
     elif archives() == 'readme':
         questionGitignore()
     else:
-        print('adios') # crear funcion
+        seguimiento()
 
 
-def main():
+
+def invoked():
     if check == True:
-        naine()
-    elif check == False:
-        questionInit()
-        naine()
-        
+        condition()
+    else:
+        if questionInit() == False:
+            condition()
+        else:
+            pass
 
-main()
+    
+        
+invoked()

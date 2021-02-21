@@ -1,19 +1,28 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-## Importamos modulos subprocess y os
+## Importamos modulos subprocess y os 
 import subprocess
 import os
 
+
 ## Inicializamos las Variables para saber cual 
 ## es nuestro directorio actual y listarlo. 
-directory = os.getcwd() 
-listDirectory = os.listdir(directory)
+#directory = os.path.dirname(input('Introduce la ruta absoluta al directorio Git: ')) 
+#directory = pathlib.Path(input('Introduce la ruta absoluta al directorio Git: '))
+
+
+#for listDirectory in directory.iterdir(directory):
+#    print(listDirectory.name)
+
+dir1 = os.chdir(input('Ruta absoluta al directorio Git: '))
+listDirectory = os.listdir(dir1)
 
 ## FUNCIONES ##
 
 ## Se comprueba si hay un repo inicializado en el directorio actual, 
 ## sino lo hubiera, se pregunta si se quiere iniciar.
+
 def checkGit():
     if '.git' in listDirectory:
         return True
@@ -54,13 +63,14 @@ def questionGitignore():
         ignore = input('¿Quieres crear el archivo .gitignore? S/n ')
         if ignore == 'S':
             subprocess.run(['touch .gitignore'], shell=True)
-            print('.gitignore creado')
+            print('.gitignore creado \n')
+            seguimiento()
             break
         elif ignore == 'n':
+            seguimiento()
             break
         else:
             print('Introduce un opción valida')
-
 
 
 ## Se pregunta si quiere crear README.md.
@@ -70,7 +80,7 @@ def questionREADME():
         readme = input('¿Quieres crear el archivo README.md? S/n ')
         if readme == 'S':
             subprocess.run(['touch README.md'], shell=True)
-            print('README.md creado')
+            print('README.md creado\n')
             break
         elif readme == 'n':
             break
@@ -78,6 +88,33 @@ def questionREADME():
             print('Introduce un opción valida')
 
 
+def seguimiento():
+    subprocess.run(['git status'], shell=True)
+    while True:
+        ques = input('¿Agregamos los archivos al commit? S/n ')
+        if ques == 'S':
+            subprocess.run(['git add .'], shell=True)
+            confirmar()
+            return False
+        else:
+            print('Hasta pronto')
+            break
+        
+
+def confirmar():
+    print('Vamos a confirmar los archivos\n')
+
+    commit = input('Mensaje del commit: ')
+    subprocess.run([f'git commit -m "{commit}"'], shell=True)
+    push()
 
 
-# crear funcion
+
+def push():
+    add = input('¿Añadimos un repositorio remoto? S/n ')
+
+    if add == 'S':
+        url = input('URL del repositorio: ')
+        subprocess.run([f'git remote add origin {url}'], shell=True)
+    else:
+        subprocess.run(['git push -u origin main'], shell=True)
