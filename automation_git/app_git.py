@@ -8,12 +8,6 @@ import os
 
 ## Inicializamos las Variables para saber cual 
 ## es nuestro directorio actual y listarlo. 
-#directory = os.path.dirname(input('Introduce la ruta absoluta al directorio Git: ')) 
-#directory = pathlib.Path(input('Introduce la ruta absoluta al directorio Git: '))
-
-
-#for listDirectory in directory.iterdir(directory):
-#    print(listDirectory.name)
 
 dir1 = os.chdir(input('Ruta absoluta al directorio Git: '))
 listDirectory = os.listdir(dir1)
