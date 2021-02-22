@@ -3,5 +3,7 @@
 - Ejecutar Script. 
 - Pasarle la ruta absoluta al directorio Git.
 
-    chmod +x app.py
-    python3 app.py
+```bash
+chmod +x app.py
+python3 app.py
+```
