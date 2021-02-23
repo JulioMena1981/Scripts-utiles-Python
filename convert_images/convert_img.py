@@ -6,6 +6,8 @@ from pathlib import Path
 import os, glob
 
 
+
+
 def wordpress():
     directorio = Path(input('Ruta al directorio de imágenes: '))
 
@@ -32,11 +34,22 @@ def cambiarTamañoImagen():
     formato = int(input('¿A que tamaño de alto convertimos la imagen?: '))
     formato0 = int(input('¿A que tamaño de ancho convertimos la imagen?: '))
 
+    file, ext = os.path.splitext(imagen)
     image = Image.open(imagen)
     imagenReducida = image.resize((formato, formato0))
-    imagenReducida.save(f"{imagen}_reducida")
+    imagenReducida.save(file + ext)
 
 
+
+def rotarImagen():
+    imagen = input('Ruta a la imagen: ')
+    grados = int(input('¿Cuantos grados rotamos la imagen?: '))
+
+    file, ext = os.path.splitext(imagen)
+    image = Image.open(imagen)
+    rotar = image.rotate(grados)
+
+    rotar.save(file + ext)
 
 
 
@@ -44,7 +57,7 @@ def cambiarTamañoImagen():
 def menu():
     while True:
         pregunta = input(""" (1) Optimizar para WordPress por lotes (Default)\n (2) Cambiar tipo de imagen\n (3) Cambiar tamaño imagen 
- (4) Recortar imagen\n (5) Rotar imagen\n (6) Agregar marca de agua\n (7) Voltear imagen\n Elige una opción (1/7) o Intro para Default:\n """)
+ (4) Rotar imagen\n (5) Agregar marca de agua\n (6) Voltear imagen\n Elige una opción (1/6) o Intro para Default:\n """)
         if pregunta == '1':
             wordpress()
             break
@@ -55,15 +68,12 @@ def menu():
             cambiarTamañoImagen()
             break
         elif pregunta == '4':
-            print("recortar imagen")
+            rotarImagen()
             break
         elif pregunta == '5':
-            print("Rotar imagen")
-            break
-        elif pregunta == '6':
             print("Agregar marca")
             break
-        elif pregunta == '7':
+        elif pregunta == '6':
             print("Voltear imagen")
             break
         elif pregunta == '':
