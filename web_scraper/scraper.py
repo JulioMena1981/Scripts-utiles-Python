@@ -4,6 +4,7 @@
 import requests
 from bs4 import BeautifulSoup
 
+print('¡ATENCION! Este Script se creo con fines de practicas, no me hago responsable del uso que le puedas dar.')
 url = input('Insert URL: ')
 
 request = requests.get(url).text
